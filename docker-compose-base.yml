@@ -1,0 +1,18 @@
+
+version: '2.1'
+services:
+  base-mysql:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+      - IMAGE_ARG_APT_MIRROR=${IMAGE_ARG_APT_MIRROR:-mirrors.163.com}
+      - IMAGE_ARG_IMAGE_TAG=${IMAGE_ARG_IMAGE_TAG:-5.6.40}
+    command: [--character-set-server=utf8mb4, --collation-server=utf8mb4_unicode_ci]
+    environment:
+    - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD:-root_pass} # changeme
+    - MYSQL_USER=${MYSQL_USER:-user} # changeme
+    - MYSQL_PASSWORD=${MYSQL_PASSWORD:-user_pass} # changeme
+    - MYSQL_DATABASE=${MYSQL_DATABASE:-db}
+    image: ${IMAGE_PREFIX:-cloudready}/${IMAGE_NAME:-mysql}:${IMAGE_TAG:-5.6.40-SNAPSHOT}
+    restart: always

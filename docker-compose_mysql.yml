@@ -1,0 +1,29 @@
+
+version: '2.1'
+services:
+  mysql:
+    extends:
+      file: docker-compose-base.yml
+      service: base-mysql
+    container_name: ${CONTAINER_HOST_NAME:-mysql}
+    hostname: ${CONTAINER_HOST_NAME:-mysql}
+    network_mode: bridge
+    ports:
+    - "${SERVER_PORT:-3306}:3306"
+    volumes:
+    - data:/var/lib/mysql
+    - log:/var/log/mysql
+
+volumes:
+  data:
+    driver: local
+    driver_opts:
+      type: none
+      device: ${PWD}/data/data
+      o: bind
+  log:
+    driver: local
+    driver_opts:
+      type: none
+      device: ${PWD}/data/log
+      o: bind
