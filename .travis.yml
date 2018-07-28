@@ -12,7 +12,7 @@ branches:
 dist: trusty
 env:
   global:
-  - IMAGE_ARG_APT_MIRROR=archive.ubuntu.com
+  - IMAGE_ARG_APT_MIRROR=deb.debian.org
   matrix:
   - IMAGE_ARG_IMAGE_TAG=5.6.40
   - IMAGE_ARG_IMAGE_TAG=5.7.22
