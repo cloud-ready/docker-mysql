@@ -10,6 +10,7 @@ services:
     network_mode: bridge
     ports:
     - "${SERVER_PORT:-3306}:3306"
+    restart: always
     volumes:
     - data:/var/lib/mysql
     - log:/var/log/mysql

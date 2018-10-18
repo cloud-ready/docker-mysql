@@ -13,6 +13,7 @@ services:
         #ipv6_address: ${IPV6_ADDRESS:-2001:3984:3989::56}
     ports:
     - "${SERVER_PORT:-3306}:3306"
+    restart: always
     volumes:
     - data:/var/lib/mysql
     - log:/var/log/mysql
