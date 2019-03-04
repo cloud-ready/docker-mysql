@@ -1,4 +1,10 @@
 
+# docker network create --driver=bridge --ipam-driver=default --subnet=172.16.238.0/24 local-network
+# docker-compose pull
+# docker-compose up
+# open http://localhost:8306
+# Login with username: root password: root_pass (password is specified by environment variable MYSQL_ROOT_PASSWORD)
+
 version: '2.1'
 services:
   mysql-develop:
@@ -25,6 +31,30 @@ services:
     volumes:
     - data:/var/lib/mysql
     - log:/var/log/mysql
+  phpmyadmin-develop:
+    container_name: ${CONTAINER_HOST_NAME:-standalone.mysql}-phpmyadmin
+    environment:
+    - MYSQL_USER=${MYSQL_USER:-user}
+    - MYSQL_PASSWORD=${MYSQL_ROOT_PASSWORD:-user_pass}
+    - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD:-root_pass}
+    - PMA_HOST=${CONTAINER_HOST_NAME:-standalone.mysql}
+    hostname: ${CONTAINER_HOST_NAME:-standalone.mysql}-phpmyadmin
+    image: phpmyadmin/phpmyadmin:4.8.5
+    labels:
+      deploy.config.commit: ${LABEL_DEPLOY_CONFIG_COMMIT:-unknown}
+      deploy.config.name: ${LABEL_DEPLOY_CONFIG_NAME:-unknown}
+      deploy.config.ref: ${LABEL_DEPLOY_CONFIG_REF:-unknown}
+      deploy.util.commit: ${LABEL_DEPLOY_UTIL_COMMIT:-unknown}
+      deploy.util.ref: ${LABEL_DEPLOY_UTIL_REF:-unknown}
+      instance.name.short: ${LABEL_INSTANCE_NAME_SHORT:-standalone.mysql}-phpmyadmin
+      instance.name: ${LABEL_INSTANCE_NAME:-127.0.0.1/mysql/standalone}-phpmyadmin
+    networks:
+      local-network:
+        ipv4_address: ${IPV4_ADDRESS:-172.16.238.57}
+        #ipv6_address: ${IPV6_ADDRESS:-2001:3984:3989::57}
+    ports:
+    - "${EXTERNAL_MYSQL_PHPMYADMIN_PORT:-8306}:80"
+    restart: always
 
 networks:
   local-network:
