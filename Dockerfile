@@ -28,6 +28,9 @@ RUN set -ex \
 COPY docker/debconf.txt /etc/debconf.txt
 RUN set -ex \
   && sed -i "s/http:\/\/deb.debian.org\/debian/http:\/\/${IMAGE_ARG_APT_MIRROR:-cdn-fastly.deb.debian.org}\/debian/g" /etc/apt/sources.list \
+  && wget -O /tmp/RPM-GPG-KEY-mysql https://repo.mysql.com/RPM-GPG-KEY-mysql \
+  && apt-key add /tmp/RPM-GPG-KEY-mysql \
+  && apt-key list \
   && echo /etc/apt/sources.list \
   && cat /etc/apt/sources.list \
   && apt -y update \
