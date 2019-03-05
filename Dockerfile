@@ -29,7 +29,7 @@ COPY docker/debconf.txt /etc/debconf.txt
 RUN set -ex \
   && sed -i "s/http:\/\/deb.debian.org\/debian/http:\/\/${IMAGE_ARG_APT_MIRROR:-cdn-fastly.deb.debian.org}\/debian/g" /etc/apt/sources.list \
   && apt-key adv --list-public-keys --with-fingerprint --with-colons \
-  && until apt-key adv --keyserver keys.gnupg.net --recv-keys A82653CE4AD6DE81463D45402C0654439BD3F480 || apt-key adv --keyserver pgp.mit.edu --recv-keys A82653CE4AD6DE81463D45402C0654439BD3F480; do echo "Try again"; done \
+  && until apt-key adv --keyserver keys.gnupg.net --recv-keys C354FF81084B64BF37050244EBAC6BC06D9876B8 || apt-key adv --keyserver pgp.mit.edu --recv-keys C354FF81084B64BF37050244EBAC6BC06D9876B8; do echo "Try again"; done \
   && echo /etc/apt/sources.list \
   && cat /etc/apt/sources.list \
   && apt -y update \
