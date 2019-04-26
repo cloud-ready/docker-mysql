@@ -11,7 +11,7 @@ if [[ -n "${CI_OPT_DOCKER_REGISTRY_PASS}" ]] && [[ -n "${CI_OPT_DOCKER_REGISTRY_
 
 export IMAGE_PREFIX=${IMAGE_PREFIX:-cloudready/};
 export IMAGE_NAME=${IMAGE_NAME:-mysql}
-export IMAGE_TAG=${IMAGE_ARG_IMAGE_TAG:-5.6.40}
+export IMAGE_TAG=${IMAGE_ARG_IMAGE_TAG:-5.7.22}
 if [[ "${TRAVIS_BRANCH}" != "master" ]]; then export IMAGE_TAG=${IMAGE_TAG}-SNAPSHOT; fi
 
 # Build image

@@ -1,7 +1,7 @@
 
 ARG IMAGE_ARG_IMAGE_TAG
 
-FROM mysql:${IMAGE_ARG_IMAGE_TAG:-5.6.40} as base
+FROM mysql:${IMAGE_ARG_IMAGE_TAG:-5.7.22} as base
 
 # see https://github.com/mysql/mysql-docker/blob/mysql-server/5.6/Dockerfile
 # see https://github.com/mysql/mysql-docker/blob/mysql-server/5.7/Dockerfile
